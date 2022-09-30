@@ -1,12 +1,15 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <InputField />
 </template>
 
 <script>
+import InputField from './components/InputField.vue';
+
 export default {
   name: 'App',
-  components: {},
+  components: {
+    InputField,
+  },
 };
 </script>
 
