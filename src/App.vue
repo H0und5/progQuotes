@@ -1,16 +1,14 @@
 <template>
-  <InputField />
+  <InputField @query-test.prevent="handleQuery"/>
 </template>
 
-<script>
+<script setup>
 import InputField from './components/InputField.vue';
 
-export default {
-  name: 'App',
-  components: {
-    InputField,
-  },
+const handleQuery = (query) => {
+  console.log(query);
 };
+
 </script>
 
 <style>

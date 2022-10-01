@@ -8,17 +8,13 @@
 <script setup>
 import { ref } from 'vue';
 
-const props = defineProps({
-  value: String,
-});
-
-console.log(props.value);
-
 const userQuery = ref('');
+
+const emit = defineEmits(['queryTest']);
 
 function submitHandler(e) {
   console.log(e);
   console.log('this works!');
-  console.log(props);
+  emit('queryTest', e);
 }
 </script>
