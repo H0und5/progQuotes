@@ -1,7 +1,7 @@
 <template>
   <h1>Programmer Quotes</h1>
   <InputField @number-requested="updateQuery"/>
-  {{ output }}
+  <p v-for="quote in queryOutput" :key="quote.id">{{quote}}</p>
 </template>
 
 <script setup>
@@ -10,10 +10,11 @@ import InputField from './components/InputField.vue';
 
 const baseURL = 'https://programming-quotes-api.herokuapp.com/Quotes?count=';
 
-const output = ref();
+const userInput = ref();
+const queryOutput = ref();
 
 const handleQuery = async () => {
-  const res = await fetch(`${baseURL}${output.value}`);
+  const res = await fetch(`${baseURL}${userInput.value}`);
 
   if (!res.ok) {
     throw new Error();
@@ -24,11 +25,15 @@ const handleQuery = async () => {
   console.log(res);
 
   console.log(data);
+
+  queryOutput.value = data;
+
+  console.log(queryOutput.value);
 };
 
 const updateQuery = (query) => {
   console.log(query);
-  output.value = query;
+  userInput.value = query;
 
   handleQuery();
 };
