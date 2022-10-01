@@ -1,12 +1,17 @@
 <template>
-  <InputField @query-test="handleQuery"/>
+  <InputField @number-requested="handleQuery"/>
+  {{ output }}
 </template>
 
 <script setup>
+import { ref } from 'vue';
 import InputField from './components/InputField.vue';
+
+const output = ref();
 
 const handleQuery = (query) => {
   console.log(query);
+  output.value = query;
 };
 
 </script>
