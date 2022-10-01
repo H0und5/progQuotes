@@ -1,7 +1,7 @@
 <template>
   <h1>Programmer Quotes</h1>
   <InputField @number-requested="updateQuery"/>
-  <p v-for="quote in queryOutput" :key="quote.id">{{quote}}</p>
+  <p v-for="quote in queryOutput" :key="quote.id">{{quote.en}}</p>
 </template>
 
 <script setup>
