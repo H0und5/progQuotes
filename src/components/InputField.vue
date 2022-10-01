@@ -1,7 +1,7 @@
 <template>
   <form @submit.prevent="submitHandler">
-    <input v-model="numberReq"/>
-    <button>Submit Query</button>
+    <input placeholder="Enter a number" v-model="numberReq" />
+    <button>Submit number</button>
   </form>
 </template>
 

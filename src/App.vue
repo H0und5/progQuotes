@@ -1,5 +1,6 @@
 <template>
-  <InputField @number-requested="handleQuery"/>
+  <h1>Programmer Quotes</h1>
+  <InputField @number-requested="updateQuery"/>
   {{ output }}
 </template>
 
@@ -7,11 +8,29 @@
 import { ref } from 'vue';
 import InputField from './components/InputField.vue';
 
+const baseURL = 'https://programming-quotes-api.herokuapp.com/Quotes?count=';
+
 const output = ref();
 
-const handleQuery = (query) => {
+const handleQuery = async () => {
+  const res = await fetch(`${baseURL}${output.value}`);
+
+  if (!res.ok) {
+    throw new Error();
+  }
+
+  const data = await res.json();
+
+  console.log(res);
+
+  console.log(data);
+};
+
+const updateQuery = (query) => {
   console.log(query);
   output.value = query;
+
+  handleQuery();
 };
 
 </script>
