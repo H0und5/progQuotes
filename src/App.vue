@@ -1,5 +1,5 @@
 <template>
-  <InputField @query-test.prevent="handleQuery"/>
+  <InputField @query-test="handleQuery"/>
 </template>
 
 <script setup>

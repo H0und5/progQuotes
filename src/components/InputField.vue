@@ -1,7 +1,7 @@
 <template>
-  <form>
+  <form @submit.prevent="submitHandler">
     <input v-model="userQuery"/>
-    <button @click.prevent="submitHandler">Submit Query</button>
+    <button>Submit Query</button>
   </form>
 </template>
 
@@ -12,9 +12,9 @@ const userQuery = ref('');
 
 const emit = defineEmits(['queryTest']);
 
-function submitHandler(e) {
-  console.log(e);
+function submitHandler() {
+  console.log(userQuery);
   console.log('this works!');
-  emit('queryTest', e);
+  emit('queryTest', userQuery.value);
 }
 </script>
