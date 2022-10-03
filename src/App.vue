@@ -1,9 +1,20 @@
+<!-- eslint-disable vuejs-accessibility/label-has-for -->
 <template>
   <h1>Programmer Quotes</h1>
   <InputField @number-requested="updateQuery" />
   <div v-for="quote in currentOutput" :key="quote.id">
     <p>{{quote.en}}</p>
-    <button @click.prevent="deleteQuote(quote.id)">Delete this quote</button>
+    <label for="update"></label>
+    <textarea v-if="editStatus" v-model="quote.en" id="update"/>
+    <button v-if="!editStatus" @click.prevent="editQuote(quote.id, quote.en)">
+      Edit this quote
+    </button>
+    <button v-if="editStatus" @click.prevent="submitEditQuote(quote.id, quote.en)">
+      Finish Editing Quote
+    </button>
+    <button @click.prevent="deleteQuote(quote.id)">
+      Delete this quote
+    </button>
   </div>
 </template>
 
@@ -15,6 +26,7 @@ const baseURL = 'https://programming-quotes-api.herokuapp.com/Quotes?count=';
 
 const userInput = ref();
 const currentOutput = ref();
+const editStatus = ref(false);
 
 // const handleQuery = async () => {
 //   const res = await fetch(`${baseURL}${userInput.value}`);
@@ -30,6 +42,7 @@ const currentOutput = ref();
 //   console.log(currentOutput.value);
 // };
 
+// Get Quotes
 const hello = () => {
   fetch(`${baseURL}${userInput.value}`)
     .then((response) => {
@@ -45,6 +58,7 @@ const hello = () => {
     .catch((error) => console.log(error));
 };
 
+// Get # of quotes from user
 const updateQuery = (query) => {
   console.log(query);
   userInput.value = query;
@@ -52,17 +66,28 @@ const updateQuery = (query) => {
   hello();
 };
 
+// Delete a Quote
 const deleteQuote = (id) => {
-  console.log(id);
-  const newCurrentQuery = currentOutput.value;
-
-  console.log(newCurrentQuery);
-
-  const nextCurrentQuery = newCurrentQuery.filter((query) => query.id !== id);
+  const nextCurrentQuery = currentOutput.value.filter((query) => query.id !== id);
 
   console.log(nextCurrentQuery);
 
   currentOutput.value = nextCurrentQuery;
+};
+
+// Edit a quote
+const editQuote = (id, en) => {
+  console.log(id, en);
+
+  editStatus.value = !editStatus.value;
+};
+
+const submitEditQuote = (id, en) => {
+  console.log(id, en);
+
+  console.log(currentOutput);
+
+  editStatus.value = !editStatus.value;
 };
 
 </script>
