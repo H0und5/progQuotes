@@ -1,5 +1,7 @@
 <!-- eslint-disable vuejs-accessibility/label-has-for -->
 <template>
+  <InputTest @submit-quote="addQuote"/>
+
   <h1>Programmer Quotes</h1>
   <InputField @number-requested="updateQuery" />
   <div v-for="quote in currentOutput" :key="quote.id">
@@ -20,7 +22,8 @@
 
 <script setup>
 import { ref } from 'vue';
-import InputField from './components/InputField.vue';
+import InputField from './src/components/InputField.vue';
+import InputTest from './src/components/InputTest.vue';
 
 const baseURL = 'https://programming-quotes-api.herokuapp.com/Quotes?count=';
 
@@ -53,6 +56,10 @@ const hello = () => {
       }
     })
     .then((data) => {
+      const newData = Object.assign(data);
+
+      console.log(newData);
+
       currentOutput.value = data;
     })
     .catch((error) => console.log(error));
@@ -88,6 +95,21 @@ const submitEditQuote = (id, en) => {
   console.log(currentOutput);
 
   editStatus.value = !editStatus.value;
+};
+
+// Add a quote
+const addQuote = (quoteAndAuthor) => {
+  console.log(quoteAndAuthor, currentOutput);
+
+  // const newAdd = { quoteAndAuthor };
+  //
+  const currentPosition = currentOutput.value.length;
+
+  currentOutput.value[`${currentPosition}`] = quoteAndAuthor;
+
+  // currentOutput.value = { ...currentOutput.value, newAdd };
+
+  console.log(typeof currentOutput.value, currentOutput, currentOutput);
 };
 
 </script>
