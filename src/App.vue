@@ -1,6 +1,9 @@
 <!-- eslint-disable vuejs-accessibility/label-has-for -->
 <template>
-  <InputTest @submit-quote="addQuote"/>
+  <div v-if="addStatus">
+    <InputTest @submit-quote="addQuote"/>
+  </div>
+  <button v-if="!addStatus" @click.prevent="changeAddStatus">Add Quote</button>
 
   <h1>Programmer Quotes</h1>
   <InputField @number-requested="updateQuery" />
@@ -29,7 +32,9 @@ const baseURL = 'https://programming-quotes-api.herokuapp.com/Quotes?count=';
 
 const userInput = ref();
 const currentOutput = ref();
+
 const editStatus = ref(false);
+const addStatus = ref(false);
 
 // const handleQuery = async () => {
 //   const res = await fetch(`${baseURL}${userInput.value}`);
@@ -98,12 +103,32 @@ const submitEditQuote = (id, en) => {
 };
 
 // Add a quote
+const changeAddStatus = () => {
+  console.log(currentOutput);
+
+  addStatus.value = !addStatus.value;
+};
+
 const addQuote = (quoteAndAuthor) => {
   console.log(quoteAndAuthor, currentOutput);
 
-  // const newAdd = { quoteAndAuthor };
-  //
-  const currentPosition = currentOutput.value.length;
+  if (currentOutput.value === undefined) {
+    console.log('undefined');
+
+    currentOutput.value = {
+      0: quoteAndAuthor,
+    };
+
+    console.log(currentOutput.value);
+
+    return;
+  }
+
+  changeAddStatus();
+
+  // let currentPosition = undefined ? 0 : currentOutput.value.length;
+
+  const currentPosition = undefined ? 0 : currentOutput.value.length;
 
   currentOutput.value[`${currentPosition}`] = quoteAndAuthor;
 

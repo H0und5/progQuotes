@@ -25,15 +25,15 @@ const newAuthor = ref('');
 const handleNewQuote = () => {
   const newId = Math.floor(Math.random() * 10000000000);
 
-  console.log(newId);
+  // console.log(newId);
 
   const quoteAndAuthor = {
     id: `${newId}`,
-    en: `${newQuote.value}`,
     author: `${newAuthor.value}`,
+    en: `${newQuote.value}`,
   };
 
-  console.log(`This got passed first: + ${newQuote.value} + ${newAuthor.value}`);
+  // console.log(`This got passed first: + ${newQuote.value} + ${newAuthor.value}`);
   emit('submitQuote', quoteAndAuthor);
 };
 
