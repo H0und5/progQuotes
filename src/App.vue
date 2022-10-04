@@ -22,8 +22,8 @@
 
 <script setup>
 import { ref } from 'vue';
-import InputField from './src/components/InputField.vue';
-import InputTest from './src/components/InputTest.vue';
+import InputField from './components/InputField.vue';
+import InputTest from './components/InputTest.vue';
 
 const baseURL = 'https://programming-quotes-api.herokuapp.com/Quotes?count=';
 
